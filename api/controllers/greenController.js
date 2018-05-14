@@ -34,10 +34,18 @@ exports.GetLastEntry = (req, res, next) => {
     }).sort({_id:-1}).limit(1);    
 }
 
-//Gets all entries between the dates specified.
+//Gets all entries between the dates.
 exports.GetEntryBetweenDates = (req, res, next) => {
-    PersonalDiary.find({}, (err, Diarys) => {
+    PersonalDiary.find({"created_date": {"$gte": new Date(req.query.ToDate), "$lt": new Date(req.query.FromDate)}}, (err, Diarys) => {
         if(err) res.send(err);
-        res.jso
+        res.json(Diarys);
     });
+}
+
+//Get first entry ever
+exports.GetFirstEntry = (req,res,next) => {
+    PersonalDiary.find({}, (err, Diary) => {
+        if(err) res.send(err);
+        res.json(Diary);
+    }).sort({_id:1}).limit(1);
 }

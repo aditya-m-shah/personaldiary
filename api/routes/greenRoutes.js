@@ -9,7 +9,13 @@ module.exports =function (app){
     app.route('/GetAll')
         .get(green.GetAllDiaryEntries);
 
+    app.route('/GetFirst')
+        .get(green.GetFirstEntry);
+
     app.route('/GetLast')
         .get(green.GetLastEntry);
+    
+    app.route('/GetBetweenDates')
+        .get(green.GetEntryBetweenDates);
 
 };
